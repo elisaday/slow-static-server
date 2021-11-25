@@ -1,21 +1,27 @@
 {
   "name": "slow-static-server",
-  "version": "1.0.0",
+  "version": "1.0.5",
   "description": "A simple HTTP static resource server with latency for testing purpose.",
-  "main": "index.js",
+  "keywords": [
+    "static",
+    "http",
+    "server",
+    "latency"
+  ],
   "scripts": {
+    "start": "node ./bin/slow-static-server.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/elisaday/slow-http-server.git"
+    "url": "git+https://github.com/elisaday/slow-static-server.git"
   },
   "author": "zeb <zebbey@gmail.com>",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/elisaday/slow-http-server/issues"
+    "url": "https://github.com/elisaday/slow-static-server/issues"
   },
-  "homepage": "https://github.com/elisaday/slow-http-server#readme",
+  "homepage": "https://github.com/elisaday/slow-static-server#readme",
   "dependencies": {
     "command-line-args": "^5.2.0",
     "command-line-usage": "^6.1.1"
@@ -26,5 +32,9 @@
     "eslint-plugin-import": "^2.25.3",
     "eslint-plugin-node": "^11.1.0",
     "eslint-plugin-promise": "^5.1.1"
+  },
+  "preferGlobal": true,
+  "bin": {
+    "slow-static-server": "./bin/slow-static-server.js"
   }
 }
