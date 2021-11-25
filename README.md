@@ -10,8 +10,10 @@ npm i -g slow-static-server
 ## Usage
 
 ```shell
-$ slow-static-server -h
+> slow-static-server -h
+```
 
+```text
 Description
 
   A simple HTTP static resource server with latency for testing purpose.
