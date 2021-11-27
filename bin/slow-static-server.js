@@ -29,6 +29,12 @@ function showUsage () {
           alias: 's'
         },
         {
+          name: 'interval',
+          description: 'Transfer interval in milliseconds [100]',
+          type: Number,
+          alias: 'i'
+        },
+        {
           name: 'port',
           description: 'Port to use [8080]',
           type: Number,
@@ -48,6 +54,7 @@ function showUsage () {
 
 const optionDefinitions = [
   { name: 'speed', alias: 's', type: Number, defaultValue: 8 },
+  { name: 'interval', alias: 'i', type: Number, defaultValue: 100 },
   { name: 'port', alias: 'p', type: Number, defaultValue: 8080 },
   { name: 'root-dir', alias: 'r', type: String, defaultValue: './' }
 ]
@@ -85,10 +92,10 @@ http.createServer(function (req, res) {
     }
     res.writeHead(200)
 
-    const step = Math.floor(options.speed * 1024 * 0.1)
+    const step = Math.floor(options.speed * 1024 * options.interval / 1000)
     let transferred = 0
     while (transferred < data.length) {
-      await sleep(100)
+      await sleep(options.interval)
       const size = Math.min(step, data.length - transferred)
       const d = data.slice(transferred, transferred + size)
       transferred += size

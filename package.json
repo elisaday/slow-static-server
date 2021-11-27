@@ -1,6 +1,6 @@
 {
   "name": "slow-static-server",
-  "version": "1.0.5",
+  "version": "1.0.6",
   "description": "A simple HTTP static resource server with latency for testing purpose.",
   "keywords": [
     "static",
