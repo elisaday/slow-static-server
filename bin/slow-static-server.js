@@ -68,6 +68,7 @@ if (options._unknown) {
 const fs = require('fs')
 const http = require('http')
 const path = require('path')
+const mime = require('mime-types')
 
 async function sleep (t) {
   return new Promise((resolve, reject) => {
@@ -77,11 +78,6 @@ async function sleep (t) {
   })
 }
 
-function isText (ext) {
-  const e = ext.toLowerCase()
-  return e === '.txt' || e === '.html'
-}
-
 console.log(`Listening ${options.port}. Root directory: ${options['root-dir']}.`)
 http.createServer(function (req, res) {
   let url = req.url
@@ -89,7 +85,6 @@ http.createServer(function (req, res) {
   if (p >= 0) {
     url = url.substring(0, p)
   }
-  const ext = path.extname(url)
   fs.readFile(path.join(options['root-dir'], url), async function (err, data) {
     if (err) {
       res.writeHead(404)
@@ -97,7 +92,8 @@ http.createServer(function (req, res) {
       return
     }
     res.writeHead(200, {
-      'Content-Type': isText(ext) ? 'text/plain; charset=UTF-8' : 'application/octet-stream'
+      'Content-Type': mime.lookup(url),
+      'Content-Length': data.length
     })
 
     const step = Math.floor(options.speed * 1024 * options.interval / 1000)
