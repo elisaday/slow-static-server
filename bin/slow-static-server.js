@@ -24,7 +24,7 @@ function showUsage () {
         },
         {
           name: 'speed',
-          description: 'Transfer speed in `speed` KB per second [8192]',
+          description: 'Transfer speed in `speed` KB per second [8]',
           type: Number,
           alias: 's'
         },
@@ -78,7 +78,7 @@ async function sleep (t) {
   })
 }
 
-console.log(`Listening ${options.port}. Root directory: ${options['root-dir']}.`)
+console.log(`Listening http://localhost:${options.port}. Root directory: ${options['root-dir']}.`)
 http.createServer(function (req, res) {
   let url = req.url
   const p = url.indexOf('?')
