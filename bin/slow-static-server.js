@@ -45,6 +45,12 @@ function showUsage () {
           description: 'Root directory [./]',
           type: String,
           alias: 'r'
+        },
+        {
+          name: 'cors',
+          description: 'Enable CORS via the Access-Control-Allow-Origin header [false]',
+          type: Boolean,
+          alias: 'c'
         }
       ]
     }
@@ -56,7 +62,8 @@ const optionDefinitions = [
   { name: 'speed', alias: 's', type: Number, defaultValue: 8 },
   { name: 'interval', alias: 'i', type: Number, defaultValue: 100 },
   { name: 'port', alias: 'p', type: Number, defaultValue: 8080 },
-  { name: 'root-dir', alias: 'r', type: String, defaultValue: './' }
+  { name: 'root-dir', alias: 'r', type: String, defaultValue: './' },
+  { name: 'cors', alias: 'c', type: Boolean, defaultValue: false }
 ]
 
 const options = commandLineArgs(optionDefinitions, { stopAtFirstUnknown: true })
@@ -95,6 +102,13 @@ http.createServer(function (req, res) {
       'Content-Type': mime.lookup(url),
       'Content-Length': data.length
     })
+
+    if (options.cors) {
+      res.writeHead(200, {
+        'Access-Control-Allow-Origin': '*',
+        'Access-Control-Allow-Headers': 'Origin, X-Requested-With, Content-Type, Accept, Range'
+      })
+    }
 
     const step = Math.floor(options.speed * 1024 * options.interval / 1000)
     let transferred = 0
